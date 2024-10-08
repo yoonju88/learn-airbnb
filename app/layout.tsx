@@ -1,6 +1,13 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import {Inter} from 'next/font/google'
+ //import {Inconsolata,Roboto } from 'next/font/google'
+
+const inter = Inter({subsets:['latin']})
+// ref to change font on app
+//const inconsolate = Inconsolata({subsets:['latin']}) 
+//const roboto = Roboto({subsets:['latin'], weight:['400']})
 
 export const metadata: Metadata = {
   title: "Create AirBnb app",
@@ -14,7 +21,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
-      <body>
+      <body className={inter.className}>
         < Navbar />
         <main className="max-w-3xl mx-auto py-10">
           {children}  {/*show the different page here */}
@@ -23,3 +30,4 @@ export default function RootLayout({
     </html>
   )
 }
+
