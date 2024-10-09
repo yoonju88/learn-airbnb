@@ -49,3 +49,12 @@ const saveUser = async(user:User) => {
 // saveUser 함수는 새로운 사용자를 기존 사용자 목록에 추가하고, 업데이트된 목록을 users.json 파일에 저장합니다.
 // fetchUsers 함수를 통해 기존의 사용자 데이터를 읽어오고, 이 배열에 새로 받은 user를 추가합니다.
 // writeFile 함수를 사용해 업데이트된 사용자 목록을 다시 users.json 파일에 저장합니다.
+
+export const deleteUser = async (formData : FormData) => {
+    const id = formData.get('id') as string
+    const users = await fetchUsers ()
+    const updatedUsers = users.filter((user)=> user.id !==id)
+    await writeFile('users.json',JSON.stringify(updatedUsers))
+    revalidatePath('/actions')
+}
+export const removeUser = async (formData : FormData) => {}
