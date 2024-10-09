@@ -12,16 +12,17 @@ type User= {
 // create new user 
 export const createUser = async(formData:FormData) => {
     'use server'
-   const firstName = formData.get('firstName') as string
-   const lastName = formData.get('lastName') as string
-   const newUser: User={firstName, lastName, id:Date.now().toString() }
+    await new Promise((resolve) => setTimeout(resolve, 2000))
+    const firstName = formData.get('firstName') as string
+    const lastName = formData.get('lastName') as string
+    const newUser: User={firstName, lastName, id:Date.now().toString() }
     try {
         await saveUser(newUser)
+        revalidatePath('/actions')
     } catch (error) {
         console.log(error)
     }
-    redirect('/')
-    // revalidatePath('/actions')
+    // redirect('/')
 }
 // Recieve formData form client then extrait firstName and lastName
 // Create newUser, id is generated based on the current time using Date.now().toStiring()
