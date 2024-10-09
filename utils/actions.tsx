@@ -1,5 +1,7 @@
 'use server'
 import {readFile, writeFile} from 'fs/promises'
+import { revalidatePath } from 'next/cache'
+import {redirect} from 'next/navigation'
 
 //User 타입 정의
 type User= {
@@ -13,9 +15,13 @@ export const createUser = async(formData:FormData) => {
    const firstName = formData.get('firstName') as string
    const lastName = formData.get('lastName') as string
    const newUser: User={firstName, lastName, id:Date.now().toString() }
-   await saveUser(newUser)
-
-   console.log(newUser)
+    try {
+        await saveUser(newUser)
+    } catch (error) {
+        console.log(error)
+    }
+    redirect('/')
+    // revalidatePath('/actions')
 }
 // Recieve formData form client then extrait firstName and lastName
 // Create newUser, id is generated based on the current time using Date.now().toStiring()
