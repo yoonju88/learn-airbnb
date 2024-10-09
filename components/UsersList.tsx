@@ -1,7 +1,19 @@
+import {fetchUsers} from '@/utils/actions'
 
-function UsersList() {
+async function UsersList() {
+    const users = await fetchUsers()
+
   return (
-    <h3>UserList</h3>
+    <div className='mt-4'>
+        {users.length ? <div>
+            {users.map((user) => {
+                return <h4 key={user.id} className="capitalize text-lg">
+                    {user.firstName} {user.lastName}
+                </h4>
+            })}
+        </div> :
+        <p> No users found...</p>}
+    </div>
   )
 }
 
