@@ -41,7 +41,7 @@ export const fetchUsers = async():Promise<User[]> => {
 // fetchUsers는 users.json 파일에서 사용자 목록을 읽어오는 함수입니다. 비동기적으로 작동하며, User[] 배열을 반환합니다.
 // by readFile read users.json to UTF-8.  if the file exist parcing to JSON. 
 
-const saveUser = async(user:User) => {
+export const saveUser = async(user:User) => {
     const users = await fetchUsers ()
     users.push(user)
     await writeFile('users.json',JSON.stringify(users))
